@@ -1,13 +1,16 @@
 services:
   - type: web
     name: misbah-openclaw-cloud
-    runtime: docker
-    repo: https://github.com/{{REPO_OWNER}}/misbah-openclaw-cloud
+    env: docker
     plan: free
-    branch: main
-    rootDir: .
-    dockerfilePath: ./Dockerfile
-    healthCheckPath: /dashboard
+    envVars:
+      - key: OLLAMA_API_KEY
+        value: ollama-local
+      - key: OPENCLAW_GATEWAY_MODE
+        value: local
+      - key: OPENCLAW_GATEWAY_PORT
+        value: 10000
+    healthCheckPath: /health
     envVars:
       - key: OPENCLAW_STATE_DIR
         value: /data
